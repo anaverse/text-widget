@@ -61,7 +61,6 @@
     const buttonBg = hasGradient 
         ? `linear-gradient(135deg, ${config.style.gradientStart}, ${config.style.gradientEnd})`
         : config.style.primaryColor;
-    const buttonRadius = config.style.buttonShape === 'square' ? '12px' : '9999px';
 
     // Styles
     const styles = `
@@ -90,7 +89,7 @@
             background: ${buttonBg};
             color: white;
             border: none;
-            border-radius: ${buttonRadius};
+            border-radius: 999px !important;
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
@@ -111,7 +110,7 @@
 
         .tw-button.tw-close-mode {
             padding: 14px;
-            border-radius: 50%;
+            border-radius: 50% !important;
         }
 
         .tw-button.tw-close-mode svg {
@@ -123,7 +122,7 @@
             display: none;
         }
 
-        /* Teaser Bubble - Wider, more horizontal */
+        /* Teaser Bubble Wrapper */
         .tw-teaser-wrap {
             position: absolute;
             bottom: 70px;
@@ -131,29 +130,38 @@
             opacity: 0;
             visibility: hidden;
             transform: translateY(10px);
-            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
         }
 
-        .tw-container:hover .tw-teaser-wrap:not(.tw-teaser-hidden),
-        .tw-teaser-wrap:hover {
+        .tw-teaser-wrap.tw-teaser-visible {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
         }
 
-        /* Close button - positioned ABOVE the bubble */
+        .tw-teaser-wrap.tw-teaser-hidden {
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+
+        /* Close button - Small subtle X */
         .tw-teaser-close {
             position: absolute;
-            top: -12px;
-            ${config.style.position}: 8px;
-            padding: 5px 12px;
+            top: -6px;
+            ${config.style.position}: -6px;
+            width: 22px;
+            height: 22px;
+            padding: 0;
             border: none;
-            background: #4b5563;
-            border-radius: 20px;
+            background: #9ca3af;
+            border-radius: 50%;
             cursor: pointer;
             color: white;
-            font-size: 12px;
-            font-weight: 500;
+            font-size: 14px;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             opacity: 0;
             transition: opacity 0.15s ease, background 0.15s ease;
             z-index: 10;
@@ -164,14 +172,14 @@
         }
 
         .tw-teaser-close:hover {
-            background: #374151;
+            background: #6b7280;
         }
 
         .tw-teaser {
             background: white;
             border-radius: 16px;
             padding: 18px 22px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
             min-width: 280px;
             max-width: 320px;
             cursor: pointer;
@@ -220,7 +228,7 @@
             position: fixed;
             bottom: 100px;
             ${config.style.position}: 24px;
-            width: 360px;
+            width: 370px;
             max-width: calc(100vw - 48px);
             max-height: calc(100vh - 130px);
             background: white;
@@ -283,19 +291,6 @@
             font-size: 14px;
             line-height: 1.5;
             position: relative;
-            margin-left: 8px;
-        }
-
-        .tw-subheader-bubble::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: -8px;
-            width: 16px;
-            height: 16px;
-            background: #E8F4FC;
-            border-bottom-right-radius: 12px;
-            clip-path: polygon(100% 0, 100% 100%, 0 100%);
         }
 
         /* Form Section */
@@ -305,34 +300,18 @@
             flex: 1;
         }
 
-        /* Form Card - with speech tail on bottom right */
+        /* Form Card - Clean, no border, with subtle tail */
         .tw-form-card {
             background: white;
             border-radius: 16px;
             border-bottom-right-radius: 4px;
-            padding: 16px 18px;
-            border: 1px solid #e5e7eb;
+            padding: 4px 0;
             position: relative;
-            margin-right: 8px;
-        }
-
-        .tw-form-card::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            right: -8px;
-            width: 16px;
-            height: 16px;
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-top: none;
-            border-left: none;
-            border-bottom-left-radius: 12px;
-            clip-path: polygon(0 0, 100% 0, 0 100%);
         }
 
         .tw-form-group {
             margin-bottom: 16px;
+            position: relative;
         }
 
         .tw-form-group:last-child {
@@ -342,16 +321,24 @@
         .tw-label {
             display: block;
             color: #374151;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
             margin-bottom: 8px;
+        }
+
+        .tw-label.tw-active {
+            color: ${config.style.primaryColor};
+        }
+
+        .tw-input-wrap {
+            position: relative;
         }
 
         .tw-input,
         .tw-textarea {
             width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #e5e7eb;
+            padding: 12px 40px 12px 14px;
+            border: 1.5px solid #e5e7eb;
             border-radius: 10px;
             font-size: 15px;
             color: #1a1a1a;
@@ -363,7 +350,10 @@
         .tw-input:focus,
         .tw-textarea:focus {
             border-color: ${config.style.primaryColor};
-            box-shadow: 0 0 0 3px ${config.style.primaryColor}15;
+        }
+
+        .tw-input.tw-valid {
+            border-color: ${config.style.primaryColor};
         }
 
         .tw-input::placeholder,
@@ -373,11 +363,33 @@
 
         .tw-textarea {
             resize: none;
-            min-height: 80px;
+            min-height: 90px;
             font-family: inherit;
+            padding-right: 14px;
         }
 
-        /* Consent Text - properly aligned */
+        .tw-textarea:focus {
+            border-color: ${config.style.primaryColor};
+        }
+
+        /* Checkmark icon */
+        .tw-check {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            color: #10b981;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .tw-check.tw-visible {
+            opacity: 1;
+        }
+
+        /* Consent Text */
         .tw-consent {
             padding: 12px 18px;
             font-size: 11px;
@@ -395,34 +407,27 @@
             color: ${config.style.primaryColor};
         }
 
-        /* Submit Button - No hover, disabled until filled */
+        /* Submit Button */
         .tw-submit-wrap {
             padding: 0 18px 16px;
             text-align: center;
         }
 
         .tw-submit {
-            background: ${config.style.primaryColor}30;
-            color: ${config.style.primaryColor};
+            background: #d1d5db;
+            color: white;
             border: none;
-            padding: 12px 40px;
-            border-radius: 9999px;
+            padding: 14px 50px;
+            border-radius: 999px;
             font-size: 15px;
             font-weight: 600;
             cursor: not-allowed;
-            opacity: 0.6;
-            transition: opacity 0.2s, background 0.2s;
+            transition: background 0.3s;
         }
 
         .tw-submit.tw-enabled {
             cursor: pointer;
-            opacity: 1;
-            background: ${config.style.primaryColor}40;
-        }
-
-        .tw-submit:disabled {
-            cursor: not-allowed;
-            opacity: 0.6;
+            background: ${buttonBg};
         }
 
         .tw-submit.tw-loading {
@@ -438,13 +443,13 @@
             width: 18px;
             height: 18px;
             margin: -9px 0 0 -9px;
-            border: 2px solid ${config.style.primaryColor};
+            border: 2px solid white;
             border-top-color: transparent;
             border-radius: 50%;
             animation: twSpin 0.7s linear infinite;
         }
 
-        /* Powered By Footer - centered and aligned */
+        /* Powered By Footer */
         .tw-footer {
             padding: 12px 18px;
             text-align: center;
@@ -545,7 +550,7 @@
         }
 
         /* Form hidden state */
-        .tw-form.tw-hidden {
+        .tw-form.tw-hidden-form {
             display: none;
         }
 
@@ -572,7 +577,8 @@
     const icons = {
         chat: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>`,
         close: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`,
-        check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`
+        check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`,
+        checkSmall: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`
     };
 
     // Create Widget Class
@@ -581,6 +587,7 @@
             this.isOpen = false;
             this.isSubmitted = false;
             this.teaserHidden = false;
+            this.teaserShown = false;
             this.init();
         }
 
@@ -588,6 +595,7 @@
             this.injectStyles();
             this.createWidget();
             this.attachEvents();
+            this.setupScrollTrigger();
         }
 
         injectStyles() {
@@ -605,7 +613,7 @@
             this.container.innerHTML = `
                 <!-- Teaser Wrapper -->
                 <div class="tw-teaser-wrap" id="tw-teaser-wrap">
-                    <button class="tw-teaser-close" id="tw-teaser-close">close</button>
+                    <button class="tw-teaser-close" id="tw-teaser-close">×</button>
                     <div class="tw-teaser" id="tw-teaser">
                         <div class="tw-teaser-content">
                             ${config.branding.avatar ? `<img src="${config.branding.avatar}" alt="" class="tw-teaser-avatar">` : ''}
@@ -638,34 +646,43 @@
 
                                 ${config.form.fields.name.show ? `
                                 <div class="tw-form-group">
-                                    <label class="tw-label" for="tw-name">${config.form.fields.name.label}</label>
-                                    <input type="text" class="tw-input" id="tw-name" name="name" 
-                                        placeholder="${config.form.fields.name.placeholder}"
-                                        ${config.form.fields.name.required ? 'data-required="true"' : ''}>
+                                    <label class="tw-label" for="tw-name" id="tw-name-label">${config.form.fields.name.label}</label>
+                                    <div class="tw-input-wrap">
+                                        <input type="text" class="tw-input" id="tw-name" name="name" 
+                                            placeholder="${config.form.fields.name.placeholder}"
+                                            data-required="${config.form.fields.name.required}">
+                                        <span class="tw-check" id="tw-name-check">${icons.checkSmall}</span>
+                                    </div>
                                 </div>` : ''}
 
                                 ${config.form.fields.phone.show ? `
                                 <div class="tw-form-group">
-                                    <label class="tw-label" for="tw-phone">${config.form.fields.phone.label}</label>
-                                    <input type="tel" class="tw-input" id="tw-phone" name="phone"
-                                        placeholder="${config.form.fields.phone.placeholder}"
-                                        ${config.form.fields.phone.required ? 'data-required="true"' : ''}>
+                                    <label class="tw-label" for="tw-phone" id="tw-phone-label">${config.form.fields.phone.label}</label>
+                                    <div class="tw-input-wrap">
+                                        <input type="tel" class="tw-input" id="tw-phone" name="phone"
+                                            placeholder="${config.form.fields.phone.placeholder}"
+                                            data-required="${config.form.fields.phone.required}">
+                                        <span class="tw-check" id="tw-phone-check">${icons.checkSmall}</span>
+                                    </div>
                                 </div>` : ''}
 
                                 ${config.form.fields.email.show ? `
                                 <div class="tw-form-group">
-                                    <label class="tw-label" for="tw-email">${config.form.fields.email.label}</label>
-                                    <input type="email" class="tw-input" id="tw-email" name="email"
-                                        placeholder="${config.form.fields.email.placeholder}"
-                                        ${config.form.fields.email.required ? 'data-required="true"' : ''}>
+                                    <label class="tw-label" for="tw-email" id="tw-email-label">${config.form.fields.email.label}</label>
+                                    <div class="tw-input-wrap">
+                                        <input type="email" class="tw-input" id="tw-email" name="email"
+                                            placeholder="${config.form.fields.email.placeholder}"
+                                            data-required="${config.form.fields.email.required}">
+                                        <span class="tw-check" id="tw-email-check">${icons.checkSmall}</span>
+                                    </div>
                                 </div>` : ''}
 
                                 ${config.form.fields.message.show ? `
                                 <div class="tw-form-group">
-                                    <label class="tw-label" for="tw-message">${config.form.fields.message.label}</label>
+                                    <label class="tw-label" for="tw-message" id="tw-message-label">${config.form.fields.message.label}</label>
                                     <textarea class="tw-textarea" id="tw-message" name="message" rows="3"
                                         placeholder="${config.form.fields.message.placeholder}"
-                                        ${config.form.fields.message.required ? 'data-required="true"' : ''}></textarea>
+                                        data-required="${config.form.fields.message.required}"></textarea>
                                 </div>` : ''}
                             </div>
                         </div>
@@ -675,7 +692,7 @@
                         </div>
 
                         <div class="tw-submit-wrap">
-                            <button type="submit" class="tw-submit" id="tw-submit" disabled>${config.form.submitText}</button>
+                            <button type="submit" class="tw-submit" id="tw-submit">${config.form.submitText}</button>
                         </div>
                     </form>
 
@@ -711,6 +728,35 @@
             this.submitBtn = this.container.querySelector('#tw-submit');
         }
 
+        setupScrollTrigger() {
+            // Show teaser after user scrolls a bit
+            let scrollTimeout;
+            const handleScroll = () => {
+                if (this.teaserHidden || this.teaserShown || this.isOpen) return;
+                
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    if (window.scrollY > 100) {
+                        this.showTeaser();
+                    }
+                }, 300);
+            };
+
+            window.addEventListener('scroll', handleScroll, { passive: true });
+
+            // Also show after 3 seconds if no scroll
+            setTimeout(() => {
+                if (!this.teaserHidden && !this.teaserShown && !this.isOpen) {
+                    this.showTeaser();
+                }
+            }, 3000);
+        }
+
+        showTeaser() {
+            this.teaserShown = true;
+            this.teaserWrap.classList.add('tw-teaser-visible');
+        }
+
         attachEvents() {
             // Main button click - opens/closes modal
             this.button.addEventListener('click', (e) => {
@@ -730,11 +776,38 @@
                 this.hideTeaser();
             });
 
-            // Form field input - check if submit should be enabled
-            const inputs = this.form.querySelectorAll('input, textarea');
-            inputs.forEach(input => {
-                input.addEventListener('input', () => this.checkFormValidity());
-            });
+            // Form field input - validate and show checkmarks
+            const nameInput = this.form.querySelector('#tw-name');
+            const phoneInput = this.form.querySelector('#tw-phone');
+            const emailInput = this.form.querySelector('#tw-email');
+            const messageInput = this.form.querySelector('#tw-message');
+
+            if (nameInput) {
+                nameInput.addEventListener('input', () => this.validateField('name'));
+                nameInput.addEventListener('focus', () => this.setLabelActive('name', true));
+                nameInput.addEventListener('blur', () => this.setLabelActive('name', false));
+            }
+
+            if (phoneInput) {
+                phoneInput.addEventListener('input', () => this.validateField('phone'));
+                phoneInput.addEventListener('focus', () => this.setLabelActive('phone', true));
+                phoneInput.addEventListener('blur', () => this.setLabelActive('phone', false));
+            }
+
+            if (emailInput) {
+                emailInput.addEventListener('input', () => this.validateField('email'));
+                emailInput.addEventListener('focus', () => this.setLabelActive('email', true));
+                emailInput.addEventListener('blur', () => this.setLabelActive('email', false));
+            }
+
+            if (messageInput) {
+                messageInput.addEventListener('input', () => {
+                    this.validateField('message');
+                    this.checkFormValidity();
+                });
+                messageInput.addEventListener('focus', () => this.setLabelActive('message', true));
+                messageInput.addEventListener('blur', () => this.setLabelActive('message', false));
+            }
 
             // Form submit
             this.form.addEventListener('submit', (e) => this.handleSubmit(e));
@@ -754,27 +827,78 @@
             });
         }
 
-        checkFormValidity() {
-            const requiredFields = this.form.querySelectorAll('[data-required="true"]');
-            let allFilled = true;
-
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    allFilled = false;
+        setLabelActive(fieldName, active) {
+            const label = this.form.querySelector(`#tw-${fieldName}-label`);
+            if (label) {
+                if (active) {
+                    label.classList.add('tw-active');
+                } else {
+                    label.classList.remove('tw-active');
                 }
-            });
+            }
+        }
 
-            if (allFilled) {
-                this.submitBtn.disabled = false;
+        validateField(fieldName) {
+            const input = this.form.querySelector(`#tw-${fieldName}`);
+            const check = this.form.querySelector(`#tw-${fieldName}-check`);
+            
+            if (!input) return false;
+
+            let isValid = false;
+            const value = input.value.trim();
+
+            if (fieldName === 'name') {
+                isValid = value.length >= 1;
+            } else if (fieldName === 'phone') {
+                const phoneClean = value.replace(/\D/g, '');
+                isValid = phoneClean.length >= 10;
+            } else if (fieldName === 'email') {
+                isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+            } else if (fieldName === 'message') {
+                isValid = value.length >= 1;
+            }
+
+            if (check) {
+                if (isValid) {
+                    check.classList.add('tw-visible');
+                    input.classList.add('tw-valid');
+                } else {
+                    check.classList.remove('tw-visible');
+                    input.classList.remove('tw-valid');
+                }
+            }
+
+            this.checkFormValidity();
+            return isValid;
+        }
+
+        checkFormValidity() {
+            // Check name and phone (required)
+            const nameInput = this.form.querySelector('#tw-name');
+            const phoneInput = this.form.querySelector('#tw-phone');
+            
+            let nameValid = true;
+            let phoneValid = true;
+
+            if (nameInput && config.form.fields.name.required) {
+                nameValid = nameInput.value.trim().length >= 1;
+            }
+
+            if (phoneInput && config.form.fields.phone.required) {
+                const phoneClean = phoneInput.value.replace(/\D/g, '');
+                phoneValid = phoneClean.length >= 10;
+            }
+
+            if (nameValid && phoneValid) {
                 this.submitBtn.classList.add('tw-enabled');
             } else {
-                this.submitBtn.disabled = true;
                 this.submitBtn.classList.remove('tw-enabled');
             }
         }
 
         hideTeaser() {
             this.teaserHidden = true;
+            this.teaserWrap.classList.remove('tw-teaser-visible');
             this.teaserWrap.classList.add('tw-teaser-hidden');
         }
 
@@ -810,7 +934,10 @@
         async handleSubmit(e) {
             e.preventDefault();
 
-            if (this.submitBtn.disabled) return;
+            // Check if enabled
+            if (!this.submitBtn.classList.contains('tw-enabled')) {
+                return;
+            }
 
             const formData = new FormData(this.form);
             const data = {
@@ -835,7 +962,6 @@
 
             // Loading state
             this.submitBtn.classList.add('tw-loading');
-            this.submitBtn.disabled = true;
             this.hideError();
 
             try {
@@ -848,7 +974,7 @@
                 if (!response.ok) throw new Error('Request failed');
 
                 // Success
-                this.form.classList.add('tw-hidden');
+                this.form.classList.add('tw-hidden-form');
                 this.successEl.classList.add('tw-show');
                 this.isSubmitted = true;
 
@@ -857,11 +983,13 @@
                     this.close();
                     setTimeout(() => {
                         this.form.reset();
-                        this.form.classList.remove('tw-hidden');
+                        this.form.classList.remove('tw-hidden-form');
                         this.successEl.classList.remove('tw-show');
                         this.submitBtn.classList.remove('tw-loading');
-                        this.submitBtn.disabled = true;
                         this.submitBtn.classList.remove('tw-enabled');
+                        // Reset checkmarks
+                        this.form.querySelectorAll('.tw-check').forEach(c => c.classList.remove('tw-visible'));
+                        this.form.querySelectorAll('.tw-input').forEach(i => i.classList.remove('tw-valid'));
                     }, 400);
                 }, 2500);
 
@@ -869,7 +997,6 @@
                 console.error('TextWidget error:', error);
                 this.showError('Something went wrong. Please try again.');
                 this.submitBtn.classList.remove('tw-loading');
-                this.checkFormValidity();
             }
         }
 
