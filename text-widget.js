@@ -61,7 +61,7 @@
     const buttonBg = hasGradient 
         ? `linear-gradient(135deg, ${config.style.gradientStart}, ${config.style.gradientEnd})`
         : config.style.primaryColor;
-    const buttonRadius = config.style.buttonShape === 'square' ? '8px' : '50px';
+    const buttonRadius = config.style.buttonShape === 'square' ? '12px' : '9999px';
 
     // Styles
     const styles = `
@@ -74,153 +74,158 @@
 
         .tw-container {
             position: fixed;
-            bottom: 20px;
-            ${config.style.position}: 20px;
+            bottom: 24px;
+            ${config.style.position}: 24px;
             z-index: 999999;
             font-size: 14px;
             line-height: 1.4;
         }
 
-        /* Floating Button */
+        /* Floating Button - Fully rounded pill */
         .tw-button {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 12px 20px;
+            gap: 10px;
+            padding: 14px 28px;
             background: ${buttonBg};
             color: white;
             border: none;
             border-radius: ${buttonRadius};
             cursor: pointer;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .tw-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
         }
 
         .tw-button svg {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             fill: currentColor;
         }
 
         .tw-button.tw-close-mode {
-            padding: 12px;
+            padding: 14px;
             border-radius: 50%;
         }
 
         .tw-button.tw-close-mode svg {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
         }
 
         .tw-button.tw-close-mode span {
             display: none;
         }
 
-        /* Teaser Bubble */
-        .tw-teaser {
+        /* Teaser Bubble - Wider, more horizontal */
+        .tw-teaser-wrap {
             position: absolute;
-            bottom: 60px;
+            bottom: 70px;
             ${config.style.position}: 0;
-            background: white;
-            border-radius: 12px;
-            padding: 16px 18px;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.12);
-            min-width: 220px;
-            max-width: 260px;
             opacity: 0;
             visibility: hidden;
             transform: translateY(10px);
             transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-            cursor: pointer;
         }
 
-        .tw-teaser::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            ${config.style.position}: 24px;
-            width: 16px;
-            height: 16px;
-            background: white;
-            transform: rotate(45deg);
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        .tw-container:hover .tw-teaser:not(.tw-teaser-hidden),
-        .tw-teaser:hover {
+        .tw-container:hover .tw-teaser-wrap:not(.tw-teaser-hidden),
+        .tw-teaser-wrap:hover {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
         }
 
+        /* Close button - positioned ABOVE the bubble */
+        .tw-teaser-close {
+            position: absolute;
+            top: -12px;
+            ${config.style.position}: 8px;
+            padding: 5px 12px;
+            border: none;
+            background: #4b5563;
+            border-radius: 20px;
+            cursor: pointer;
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.15s ease, background 0.15s ease;
+            z-index: 10;
+        }
+
+        .tw-teaser-wrap:hover .tw-teaser-close {
+            opacity: 1;
+        }
+
+        .tw-teaser-close:hover {
+            background: #374151;
+        }
+
+        .tw-teaser {
+            background: white;
+            border-radius: 16px;
+            padding: 18px 22px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+            min-width: 280px;
+            max-width: 320px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tw-teaser::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            ${config.style.position}: 28px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            transform: rotate(45deg);
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
         .tw-teaser-content {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             position: relative;
             z-index: 1;
             background: white;
         }
 
         .tw-teaser-avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
             object-fit: cover;
-            border: 2px solid ${config.style.primaryColor}30;
+            border: 2px solid ${config.style.primaryColor}25;
             flex-shrink: 0;
         }
 
         .tw-teaser-text {
             color: #1a1a1a;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 500;
-            line-height: 1.35;
-        }
-
-        .tw-teaser-close {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            padding: 4px 10px;
-            border: none;
-            background: #374151;
-            border-radius: 20px;
-            cursor: pointer;
-            color: white;
-            font-size: 11px;
-            font-weight: 500;
-            opacity: 0;
-            transition: opacity 0.15s ease;
-            z-index: 10;
-        }
-
-        .tw-teaser:hover .tw-teaser-close {
-            opacity: 1;
-        }
-
-        .tw-teaser-close:hover {
-            background: #1f2937;
+            line-height: 1.4;
         }
 
         /* Modal */
         .tw-modal {
             position: fixed;
-            bottom: 90px;
-            ${config.style.position}: 20px;
-            width: 340px;
-            max-width: calc(100vw - 40px);
-            max-height: calc(100vh - 120px);
+            bottom: 100px;
+            ${config.style.position}: 24px;
+            width: 360px;
+            max-width: calc(100vw - 48px);
+            max-height: calc(100vh - 130px);
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 40px rgba(0, 0, 0, 0.15);
+            border-radius: 16px;
+            box-shadow: 0 8px 50px rgba(0, 0, 0, 0.18);
             overflow: hidden;
             display: none;
             flex-direction: column;
@@ -238,7 +243,7 @@
                 width: 100%;
                 max-width: 100%;
                 max-height: 85vh;
-                border-radius: 12px 12px 0 0;
+                border-radius: 16px 16px 0 0;
             }
         }
 
@@ -246,54 +251,88 @@
         .tw-header {
             background: ${config.style.primaryColor};
             color: white;
-            padding: 16px 18px;
+            padding: 18px 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .tw-header svg {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             fill: currentColor;
             opacity: 0.9;
         }
 
         .tw-header-title {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
         }
 
-        /* Sub Header Bubble */
+        /* Sub Header Bubble - with speech tail on left */
         .tw-subheader {
-            padding: 14px 16px 0;
+            padding: 16px 18px 0;
         }
 
         .tw-subheader-bubble {
             background: #E8F4FC;
-            border-radius: 10px;
-            padding: 12px 14px;
+            border-radius: 16px;
+            border-bottom-left-radius: 4px;
+            padding: 14px 16px;
             color: #1a1a1a;
-            font-size: 13px;
-            line-height: 1.45;
+            font-size: 14px;
+            line-height: 1.5;
+            position: relative;
+            margin-left: 8px;
+        }
+
+        .tw-subheader-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -8px;
+            width: 16px;
+            height: 16px;
+            background: #E8F4FC;
+            border-bottom-right-radius: 12px;
+            clip-path: polygon(100% 0, 100% 100%, 0 100%);
         }
 
         /* Form Section */
         .tw-form-wrapper {
-            padding: 14px 16px;
+            padding: 16px 18px;
             overflow-y: auto;
             flex: 1;
         }
 
+        /* Form Card - with speech tail on bottom right */
         .tw-form-card {
             background: white;
-            border-radius: 10px;
-            padding: 14px 16px;
+            border-radius: 16px;
+            border-bottom-right-radius: 4px;
+            padding: 16px 18px;
             border: 1px solid #e5e7eb;
+            position: relative;
+            margin-right: 8px;
+        }
+
+        .tw-form-card::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            right: -8px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-top: none;
+            border-left: none;
+            border-bottom-left-radius: 12px;
+            clip-path: polygon(0 0, 100% 0, 0 100%);
         }
 
         .tw-form-group {
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
 
         .tw-form-group:last-child {
@@ -304,17 +343,17 @@
             display: block;
             color: #374151;
             font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 6px;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
 
         .tw-input,
         .tw-textarea {
             width: 100%;
-            padding: 10px 12px;
+            padding: 12px 14px;
             border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: 10px;
+            font-size: 15px;
             color: #1a1a1a;
             background: white;
             transition: border-color 0.2s, box-shadow 0.2s;
@@ -334,16 +373,17 @@
 
         .tw-textarea {
             resize: none;
-            min-height: 70px;
+            min-height: 80px;
             font-family: inherit;
         }
 
-        /* Consent Text */
+        /* Consent Text - properly aligned */
         .tw-consent {
-            padding: 0 16px 10px;
+            padding: 12px 18px;
             font-size: 11px;
             color: #6b7280;
-            line-height: 1.5;
+            line-height: 1.6;
+            text-align: justify;
         }
 
         .tw-consent a {
@@ -355,35 +395,34 @@
             color: ${config.style.primaryColor};
         }
 
-        /* Submit Button */
+        /* Submit Button - No hover, disabled until filled */
         .tw-submit-wrap {
-            padding: 0 16px 14px;
+            padding: 0 18px 16px;
             text-align: center;
         }
 
         .tw-submit {
-            background: ${config.style.primaryColor}25;
+            background: ${config.style.primaryColor}30;
             color: ${config.style.primaryColor};
             border: none;
-            padding: 11px 36px;
-            border-radius: 50px;
-            font-size: 14px;
+            padding: 12px 40px;
+            border-radius: 9999px;
+            font-size: 15px;
             font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
+            cursor: not-allowed;
+            opacity: 0.6;
+            transition: opacity 0.2s, background 0.2s;
         }
 
-        .tw-submit:hover:not(:disabled) {
+        .tw-submit.tw-enabled {
+            cursor: pointer;
+            opacity: 1;
             background: ${config.style.primaryColor}40;
         }
 
-        .tw-submit:active:not(:disabled) {
-            transform: scale(0.98);
-        }
-
         .tw-submit:disabled {
-            opacity: 0.6;
             cursor: not-allowed;
+            opacity: 0.6;
         }
 
         .tw-submit.tw-loading {
@@ -396,23 +435,28 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 16px;
-            height: 16px;
-            margin: -8px 0 0 -8px;
+            width: 18px;
+            height: 18px;
+            margin: -9px 0 0 -9px;
             border: 2px solid ${config.style.primaryColor};
             border-top-color: transparent;
             border-radius: 50%;
             animation: twSpin 0.7s linear infinite;
         }
 
-        /* Powered By Footer */
+        /* Powered By Footer - centered and aligned */
         .tw-footer {
-            padding: 10px 16px;
+            padding: 12px 18px;
             text-align: center;
             border-top: 1px solid #f3f4f6;
-            font-size: 12px;
+            font-size: 13px;
             color: #6b7280;
             background: #fafafa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
         }
 
         .tw-footer a {
@@ -431,7 +475,7 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
         }
 
         .tw-footer-brand:hover {
@@ -439,14 +483,14 @@
         }
 
         .tw-footer-brand img {
-            width: 16px;
-            height: 16px;
-            border-radius: 3px;
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
         }
 
         /* Success State */
         .tw-success {
-            padding: 40px 20px;
+            padding: 50px 24px;
             text-align: center;
             display: none;
         }
@@ -456,32 +500,32 @@
         }
 
         .tw-success-icon {
-            width: 56px;
-            height: 56px;
+            width: 64px;
+            height: 64px;
             background: ${config.style.primaryColor}20;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 14px;
+            margin: 0 auto 16px;
         }
 
         .tw-success-icon svg {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             stroke: ${config.style.primaryColor};
             fill: none;
         }
 
         .tw-success-text {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
             color: #1a1a1a;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .tw-success-subtext {
-            font-size: 13px;
+            font-size: 14px;
             color: #6b7280;
         }
 
@@ -489,9 +533,9 @@
         .tw-error {
             background: #FEE2E2;
             color: #DC2626;
-            padding: 10px 12px;
-            border-radius: 6px;
-            margin-bottom: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 14px;
             font-size: 13px;
             display: none;
         }
@@ -559,12 +603,14 @@
 
             // Build HTML
             this.container.innerHTML = `
-                <!-- Teaser -->
-                <div class="tw-teaser" id="tw-teaser">
+                <!-- Teaser Wrapper -->
+                <div class="tw-teaser-wrap" id="tw-teaser-wrap">
                     <button class="tw-teaser-close" id="tw-teaser-close">close</button>
-                    <div class="tw-teaser-content">
-                        ${config.branding.avatar ? `<img src="${config.branding.avatar}" alt="" class="tw-teaser-avatar">` : ''}
-                        <div class="tw-teaser-text">${config.branding.welcomeText}</div>
+                    <div class="tw-teaser" id="tw-teaser">
+                        <div class="tw-teaser-content">
+                            ${config.branding.avatar ? `<img src="${config.branding.avatar}" alt="" class="tw-teaser-avatar">` : ''}
+                            <div class="tw-teaser-text">${config.branding.welcomeText}</div>
+                        </div>
                     </div>
                 </div>
 
@@ -595,7 +641,7 @@
                                     <label class="tw-label" for="tw-name">${config.form.fields.name.label}</label>
                                     <input type="text" class="tw-input" id="tw-name" name="name" 
                                         placeholder="${config.form.fields.name.placeholder}"
-                                        ${config.form.fields.name.required ? 'required' : ''}>
+                                        ${config.form.fields.name.required ? 'data-required="true"' : ''}>
                                 </div>` : ''}
 
                                 ${config.form.fields.phone.show ? `
@@ -603,7 +649,7 @@
                                     <label class="tw-label" for="tw-phone">${config.form.fields.phone.label}</label>
                                     <input type="tel" class="tw-input" id="tw-phone" name="phone"
                                         placeholder="${config.form.fields.phone.placeholder}"
-                                        ${config.form.fields.phone.required ? 'required' : ''}>
+                                        ${config.form.fields.phone.required ? 'data-required="true"' : ''}>
                                 </div>` : ''}
 
                                 ${config.form.fields.email.show ? `
@@ -611,7 +657,7 @@
                                     <label class="tw-label" for="tw-email">${config.form.fields.email.label}</label>
                                     <input type="email" class="tw-input" id="tw-email" name="email"
                                         placeholder="${config.form.fields.email.placeholder}"
-                                        ${config.form.fields.email.required ? 'required' : ''}>
+                                        ${config.form.fields.email.required ? 'data-required="true"' : ''}>
                                 </div>` : ''}
 
                                 ${config.form.fields.message.show ? `
@@ -619,7 +665,7 @@
                                     <label class="tw-label" for="tw-message">${config.form.fields.message.label}</label>
                                     <textarea class="tw-textarea" id="tw-message" name="message" rows="3"
                                         placeholder="${config.form.fields.message.placeholder}"
-                                        ${config.form.fields.message.required ? 'required' : ''}></textarea>
+                                        ${config.form.fields.message.required ? 'data-required="true"' : ''}></textarea>
                                 </div>` : ''}
                             </div>
                         </div>
@@ -629,7 +675,7 @@
                         </div>
 
                         <div class="tw-submit-wrap">
-                            <button type="submit" class="tw-submit" id="tw-submit">${config.form.submitText}</button>
+                            <button type="submit" class="tw-submit" id="tw-submit" disabled>${config.form.submitText}</button>
                         </div>
                     </form>
 
@@ -642,7 +688,7 @@
                     ${config.style.showPoweredBy ? `
                     <div class="tw-footer">
                         <a href="https://automatelly.com" target="_blank" rel="noopener">Try website texting</a>
-                        powered by
+                        <span>powered by</span>
                         <a href="https://automatelly.com" target="_blank" rel="noopener" class="tw-footer-brand">
                             <img src="https://automatelly.com/wp-content/uploads/2025/11/Favicon-648X648.png" alt="">
                             Automatelly
@@ -655,6 +701,7 @@
 
             // Cache elements
             this.button = this.container.querySelector('#tw-button');
+            this.teaserWrap = this.container.querySelector('#tw-teaser-wrap');
             this.teaser = this.container.querySelector('#tw-teaser');
             this.teaserClose = this.container.querySelector('#tw-teaser-close');
             this.modal = this.container.querySelector('#tw-modal');
@@ -673,15 +720,20 @@
 
             // Teaser click - opens modal
             this.teaser.addEventListener('click', (e) => {
-                if (e.target !== this.teaserClose) {
-                    this.open();
-                }
+                e.stopPropagation();
+                this.open();
             });
 
             // Teaser close button
             this.teaserClose.addEventListener('click', (e) => {
                 e.stopPropagation();
                 this.hideTeaser();
+            });
+
+            // Form field input - check if submit should be enabled
+            const inputs = this.form.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('input', () => this.checkFormValidity());
             });
 
             // Form submit
@@ -702,9 +754,28 @@
             });
         }
 
+        checkFormValidity() {
+            const requiredFields = this.form.querySelectorAll('[data-required="true"]');
+            let allFilled = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    allFilled = false;
+                }
+            });
+
+            if (allFilled) {
+                this.submitBtn.disabled = false;
+                this.submitBtn.classList.add('tw-enabled');
+            } else {
+                this.submitBtn.disabled = true;
+                this.submitBtn.classList.remove('tw-enabled');
+            }
+        }
+
         hideTeaser() {
             this.teaserHidden = true;
-            this.teaser.classList.add('tw-teaser-hidden');
+            this.teaserWrap.classList.add('tw-teaser-hidden');
         }
 
         toggle() {
@@ -738,6 +809,8 @@
 
         async handleSubmit(e) {
             e.preventDefault();
+
+            if (this.submitBtn.disabled) return;
 
             const formData = new FormData(this.form);
             const data = {
@@ -787,7 +860,8 @@
                         this.form.classList.remove('tw-hidden');
                         this.successEl.classList.remove('tw-show');
                         this.submitBtn.classList.remove('tw-loading');
-                        this.submitBtn.disabled = false;
+                        this.submitBtn.disabled = true;
+                        this.submitBtn.classList.remove('tw-enabled');
                     }, 400);
                 }, 2500);
 
@@ -795,7 +869,7 @@
                 console.error('TextWidget error:', error);
                 this.showError('Something went wrong. Please try again.');
                 this.submitBtn.classList.remove('tw-loading');
-                this.submitBtn.disabled = false;
+                this.checkFormValidity();
             }
         }
 
