@@ -62,7 +62,7 @@
         ? `linear-gradient(135deg, ${config.style.gradientStart}, ${config.style.gradientEnd})`
         : config.style.primaryColor;
 
-    // Styles
+    // Styles - Compact version matching Podium
     const styles = `
         .tw-container * {
             margin: 0;
@@ -80,7 +80,7 @@
             line-height: 1.4;
         }
 
-        /* Floating Button - Fully rounded pill */
+        /* Floating Button */
         .tw-button {
             display: flex;
             align-items: center;
@@ -122,7 +122,7 @@
             display: none;
         }
 
-        /* Teaser Bubble Wrapper */
+        /* Teaser Bubble */
         .tw-teaser-wrap {
             position: absolute;
             bottom: 70px;
@@ -144,7 +144,6 @@
             visibility: hidden !important;
         }
 
-        /* Close button - Small subtle X */
         .tw-teaser-close {
             position: absolute;
             top: -6px;
@@ -158,7 +157,6 @@
             cursor: pointer;
             color: white;
             font-size: 14px;
-            font-weight: 400;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -223,14 +221,13 @@
             line-height: 1.4;
         }
 
-        /* Modal */
+        /* Modal - Compact */
         .tw-modal {
             position: fixed;
             bottom: 100px;
             ${config.style.position}: 24px;
-            width: 370px;
+            width: 340px;
             max-width: calc(100vw - 48px);
-            max-height: calc(100vh - 130px);
             background: white;
             border-radius: 16px;
             box-shadow: 0 8px 50px rgba(0, 0, 0, 0.18);
@@ -250,67 +247,61 @@
                 ${config.style.position}: 0;
                 width: 100%;
                 max-width: 100%;
-                max-height: 85vh;
                 border-radius: 16px 16px 0 0;
             }
         }
 
-        /* Modal Header */
+        /* Modal Header - Compact */
         .tw-header {
             background: ${config.style.primaryColor};
             color: white;
-            padding: 18px 20px;
+            padding: 14px 18px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .tw-header svg {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             fill: currentColor;
             opacity: 0.9;
         }
 
         .tw-header-title {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
         }
 
-        /* Sub Header Bubble - with speech tail on left */
+        /* Sub Header Bubble - Compact */
         .tw-subheader {
-            padding: 16px 18px 0;
+            padding: 12px 16px 0;
         }
 
         .tw-subheader-bubble {
             background: #E8F4FC;
-            border-radius: 16px;
+            border-radius: 12px;
             border-bottom-left-radius: 4px;
-            padding: 14px 16px;
+            padding: 10px 14px;
             color: #1a1a1a;
-            font-size: 14px;
-            line-height: 1.5;
-            position: relative;
+            font-size: 13px;
+            line-height: 1.4;
         }
 
-        /* Form Section */
+        /* Form Section - Compact */
         .tw-form-wrapper {
-            padding: 16px 18px;
-            overflow-y: auto;
-            flex: 1;
+            padding: 12px 16px;
         }
 
-        /* Form Card - Clean, no border, with subtle tail */
         .tw-form-card {
             background: white;
-            border-radius: 16px;
-            border-bottom-right-radius: 4px;
-            padding: 4px 0;
-            position: relative;
+            border-radius: 12px;
+            padding: 12px 14px;
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
         }
 
         .tw-form-group {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             position: relative;
         }
 
@@ -318,12 +309,13 @@
             margin-bottom: 0;
         }
 
+        /* Underline style inputs like Podium */
         .tw-label {
             display: block;
-            color: #374151;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 8px;
+            color: #6b7280;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 2px;
         }
 
         .tw-label.tw-active {
@@ -334,52 +326,57 @@
             position: relative;
         }
 
-        .tw-input,
-        .tw-textarea {
+        .tw-input {
             width: 100%;
-            padding: 12px 40px 12px 14px;
-            border: 1.5px solid #e5e7eb;
-            border-radius: 10px;
-            font-size: 15px;
+            padding: 6px 30px 6px 0;
+            border: none;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
             color: #1a1a1a;
-            background: white;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            background: transparent;
+            transition: border-color 0.2s;
             outline: none;
         }
 
-        .tw-input:focus,
-        .tw-textarea:focus {
-            border-color: ${config.style.primaryColor};
+        .tw-input:focus {
+            border-bottom-color: ${config.style.primaryColor};
         }
 
         .tw-input.tw-valid {
-            border-color: ${config.style.primaryColor};
+            border-bottom-color: ${config.style.primaryColor};
         }
 
-        .tw-input::placeholder,
-        .tw-textarea::placeholder {
+        .tw-input::placeholder {
             color: #9ca3af;
         }
 
         .tw-textarea {
+            width: 100%;
+            padding: 6px 0;
+            border: none;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+            color: #1a1a1a;
+            background: transparent;
+            transition: border-color 0.2s;
+            outline: none;
             resize: none;
-            min-height: 90px;
+            min-height: 50px;
             font-family: inherit;
-            padding-right: 14px;
         }
 
         .tw-textarea:focus {
-            border-color: ${config.style.primaryColor};
+            border-bottom-color: ${config.style.primaryColor};
         }
 
-        /* Checkmark icon */
+        /* Checkmark */
         .tw-check {
             position: absolute;
-            right: 12px;
+            right: 0;
             top: 50%;
             transform: translateY(-50%);
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             color: #10b981;
             opacity: 0;
             transition: opacity 0.2s;
@@ -389,12 +386,12 @@
             opacity: 1;
         }
 
-        /* Consent Text */
+        /* Consent - Compact */
         .tw-consent {
-            padding: 12px 18px;
-            font-size: 11px;
+            padding: 10px 16px;
+            font-size: 10px;
             color: #6b7280;
-            line-height: 1.6;
+            line-height: 1.5;
             text-align: justify;
         }
 
@@ -403,13 +400,9 @@
             text-decoration: underline;
         }
 
-        .tw-consent a:hover {
-            color: ${config.style.primaryColor};
-        }
-
-        /* Submit Button */
+        /* Submit Button - Compact */
         .tw-submit-wrap {
-            padding: 0 18px 16px;
+            padding: 0 16px 12px;
             text-align: center;
         }
 
@@ -417,9 +410,9 @@
             background: #d1d5db;
             color: white;
             border: none;
-            padding: 14px 50px;
+            padding: 10px 40px;
             border-radius: 999px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             cursor: not-allowed;
             transition: background 0.3s;
@@ -440,27 +433,27 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 18px;
-            height: 18px;
-            margin: -9px 0 0 -9px;
+            width: 16px;
+            height: 16px;
+            margin: -8px 0 0 -8px;
             border: 2px solid white;
             border-top-color: transparent;
             border-radius: 50%;
             animation: twSpin 0.7s linear infinite;
         }
 
-        /* Powered By Footer */
+        /* Footer - Compact */
         .tw-footer {
-            padding: 12px 18px;
+            padding: 10px 16px;
             text-align: center;
             border-top: 1px solid #f3f4f6;
-            font-size: 13px;
+            font-size: 11px;
             color: #6b7280;
             background: #fafafa;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 4px;
             flex-wrap: wrap;
         }
 
@@ -480,7 +473,7 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
         }
 
         .tw-footer-brand:hover {
@@ -488,14 +481,14 @@
         }
 
         .tw-footer-brand img {
-            width: 18px;
-            height: 18px;
-            border-radius: 4px;
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
         }
 
         /* Success State */
         .tw-success {
-            padding: 50px 24px;
+            padding: 40px 20px;
             text-align: center;
             display: none;
         }
@@ -505,32 +498,32 @@
         }
 
         .tw-success-icon {
-            width: 64px;
-            height: 64px;
+            width: 50px;
+            height: 50px;
             background: ${config.style.primaryColor}20;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 16px;
+            margin: 0 auto 12px;
         }
 
         .tw-success-icon svg {
-            width: 32px;
-            height: 32px;
+            width: 26px;
+            height: 26px;
             stroke: ${config.style.primaryColor};
             fill: none;
         }
 
         .tw-success-text {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             color: #1a1a1a;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .tw-success-subtext {
-            font-size: 14px;
+            font-size: 13px;
             color: #6b7280;
         }
 
@@ -538,10 +531,10 @@
         .tw-error {
             background: #FEE2E2;
             color: #DC2626;
-            padding: 10px 14px;
-            border-radius: 8px;
-            margin-bottom: 14px;
-            font-size: 13px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-size: 12px;
             display: none;
         }
 
@@ -549,7 +542,6 @@
             display: block;
         }
 
-        /* Form hidden state */
         .tw-form.tw-hidden-form {
             display: none;
         }
@@ -581,7 +573,7 @@
         checkSmall: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`
     };
 
-    // Create Widget Class
+    // Widget Class
     class TextWidget {
         constructor() {
             this.isOpen = false;
@@ -609,9 +601,7 @@
             this.container = document.createElement('div');
             this.container.className = 'tw-container';
 
-            // Build HTML
             this.container.innerHTML = `
-                <!-- Teaser Wrapper -->
                 <div class="tw-teaser-wrap" id="tw-teaser-wrap">
                     <button class="tw-teaser-close" id="tw-teaser-close">×</button>
                     <div class="tw-teaser" id="tw-teaser">
@@ -622,13 +612,11 @@
                     </div>
                 </div>
 
-                <!-- Main Button -->
                 <button class="tw-button" id="tw-button">
                     ${icons.chat}
                     <span>${config.style.buttonText}</span>
                 </button>
 
-                <!-- Modal -->
                 <div class="tw-modal" id="tw-modal">
                     <div class="tw-header">
                         ${icons.chat}
@@ -680,7 +668,7 @@
                                 ${config.form.fields.message.show ? `
                                 <div class="tw-form-group">
                                     <label class="tw-label" for="tw-message" id="tw-message-label">${config.form.fields.message.label}</label>
-                                    <textarea class="tw-textarea" id="tw-message" name="message" rows="3"
+                                    <textarea class="tw-textarea" id="tw-message" name="message" rows="2"
                                         placeholder="${config.form.fields.message.placeholder}"
                                         data-required="${config.form.fields.message.required}"></textarea>
                                 </div>` : ''}
@@ -716,7 +704,6 @@
 
             document.body.appendChild(this.container);
 
-            // Cache elements
             this.button = this.container.querySelector('#tw-button');
             this.teaserWrap = this.container.querySelector('#tw-teaser-wrap');
             this.teaser = this.container.querySelector('#tw-teaser');
@@ -729,7 +716,6 @@
         }
 
         setupScrollTrigger() {
-            // Show teaser after user scrolls a bit
             let scrollTimeout;
             const handleScroll = () => {
                 if (this.teaserHidden || this.teaserShown || this.isOpen) return;
@@ -744,7 +730,6 @@
 
             window.addEventListener('scroll', handleScroll, { passive: true });
 
-            // Also show after 3 seconds if no scroll
             setTimeout(() => {
                 if (!this.teaserHidden && !this.teaserShown && !this.isOpen) {
                     this.showTeaser();
@@ -758,25 +743,21 @@
         }
 
         attachEvents() {
-            // Main button click - opens/closes modal
             this.button.addEventListener('click', (e) => {
                 e.stopPropagation();
                 this.toggle();
             });
 
-            // Teaser click - opens modal
             this.teaser.addEventListener('click', (e) => {
                 e.stopPropagation();
                 this.open();
             });
 
-            // Teaser close button
             this.teaserClose.addEventListener('click', (e) => {
                 e.stopPropagation();
                 this.hideTeaser();
             });
 
-            // Form field input - validate and show checkmarks
             const nameInput = this.form.querySelector('#tw-name');
             const phoneInput = this.form.querySelector('#tw-phone');
             const emailInput = this.form.querySelector('#tw-email');
@@ -801,25 +782,19 @@
             }
 
             if (messageInput) {
-                messageInput.addEventListener('input', () => {
-                    this.validateField('message');
-                    this.checkFormValidity();
-                });
+                messageInput.addEventListener('input', () => this.checkFormValidity());
                 messageInput.addEventListener('focus', () => this.setLabelActive('message', true));
                 messageInput.addEventListener('blur', () => this.setLabelActive('message', false));
             }
 
-            // Form submit
             this.form.addEventListener('submit', (e) => this.handleSubmit(e));
 
-            // Close on escape
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && this.isOpen) {
                     this.close();
                 }
             });
 
-            // Close on outside click
             document.addEventListener('click', (e) => {
                 if (this.isOpen && !this.container.contains(e.target)) {
                     this.close();
@@ -854,8 +829,6 @@
                 isValid = phoneClean.length >= 10;
             } else if (fieldName === 'email') {
                 isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-            } else if (fieldName === 'message') {
-                isValid = value.length >= 1;
             }
 
             if (check) {
@@ -873,7 +846,6 @@
         }
 
         checkFormValidity() {
-            // Check name and phone (required)
             const nameInput = this.form.querySelector('#tw-name');
             const phoneInput = this.form.querySelector('#tw-phone');
             
@@ -917,7 +889,6 @@
             this.button.classList.add('tw-close-mode');
             this.button.innerHTML = `${icons.close}<span></span>`;
 
-            // Focus first input
             setTimeout(() => {
                 const firstInput = this.modal.querySelector('input, textarea');
                 if (firstInput) firstInput.focus();
@@ -934,7 +905,6 @@
         async handleSubmit(e) {
             e.preventDefault();
 
-            // Check if enabled
             if (!this.submitBtn.classList.contains('tw-enabled')) {
                 return;
             }
@@ -951,7 +921,6 @@
                 branding: { name: config.branding.name }
             };
 
-            // Validate phone
             if (config.form.fields.phone.required && data.phone) {
                 const phoneClean = data.phone.replace(/\D/g, '');
                 if (phoneClean.length < 10) {
@@ -960,7 +929,6 @@
                 }
             }
 
-            // Loading state
             this.submitBtn.classList.add('tw-loading');
             this.hideError();
 
@@ -973,12 +941,10 @@
 
                 if (!response.ok) throw new Error('Request failed');
 
-                // Success
                 this.form.classList.add('tw-hidden-form');
                 this.successEl.classList.add('tw-show');
                 this.isSubmitted = true;
 
-                // Close after delay
                 setTimeout(() => {
                     this.close();
                     setTimeout(() => {
@@ -987,7 +953,6 @@
                         this.successEl.classList.remove('tw-show');
                         this.submitBtn.classList.remove('tw-loading');
                         this.submitBtn.classList.remove('tw-enabled');
-                        // Reset checkmarks
                         this.form.querySelectorAll('.tw-check').forEach(c => c.classList.remove('tw-visible'));
                         this.form.querySelectorAll('.tw-input').forEach(i => i.classList.remove('tw-valid'));
                     }, 400);
@@ -1010,7 +975,6 @@
         }
     }
 
-    // Initialize
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => new TextWidget());
     } else {
