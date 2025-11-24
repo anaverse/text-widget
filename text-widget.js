@@ -209,7 +209,7 @@
         .tw-teaser-avatar {
             width: 48px;
             height: 48px;
-            border-radius: 12px;
+            border-radius: none;
             object-fit: cover;
             border: 2px solid ${config.style.primaryColor}25;
             flex-shrink: 0;
